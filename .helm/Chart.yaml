@@ -1,0 +1,5 @@
+apiVersion: v2
+name: next
+description: constructor frontend microservice
+type: application
+version: 0.9.0

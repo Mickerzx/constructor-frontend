@@ -1,0 +1,54 @@
+stages:
+- build
+- deploy
+
+build-image:
+  stage: build
+  only:
+  - master
+  - develop
+  - devops
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  before_script:
+  - mkdir -p /kaniko/.docker
+  - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"username\":\"gitlab-ci-token\",\"password\":\"${CI_JOB_TOKEN}\"}}}" > /kaniko/.docker/config.json
+  script:
+  - export NODE_OPTIONS=--max_old_space_size=4096
+  - /kaniko/executor --context=./ --dockerfile=Dockerfile
+      --cache
+      --build-arg REGISTRY_AUTH_TOKEN="${CI_JOB_TOKEN}"
+      --destination=$CI_REGISTRY/$CI_PROJECT_PATH/next:${CI_COMMIT_SHORT_SHA}
+      --destination=$CI_REGISTRY/$CI_PROJECT_PATH/next:${CI_COMMIT_BRANCH}
+
+
+selectel-deploy:
+  stage: deploy
+  rules:
+  - if: $CI_COMMIT_BRANCH == "master" || $CI_COMMIT_BRANCH == "devops"
+    when: always
+    variables:
+      K8S_NAMESPACE: "production"
+      ENV: "production"
+  - if: $CI_COMMIT_BRANCH == "develop"
+    when: manual
+    variables:
+      K8S_NAMESPACE: "production"
+      ENV: "production"
+  image: golovanovsv/k8s-tools:1.23.3
+  before_script:
+  - kubectl config set-cluster k8s-cluster --server="${K8S_SERVER}" --insecure-skip-tls-verify=true
+  - kubectl config set-credentials deployer --token="${K8S_TOKEN}"
+  - kubectl config set-context k8s-cluster --cluster=k8s-cluster --user=deployer
+  - kubectl config use-context k8s-cluster
+  script:
+  - helm upgrade -i -n ${K8S_NAMESPACE} -f .helm/${ENV}.yaml --set image.tag=${CI_COMMIT_SHORT_SHA} ${HELM_RELEASE} .helm
+  variables:
+    K8S_SERVER: "https://kubernetes.default.svc"
+    K8S_TOKEN: ${K8S_SELECTEL_TOKEN}
+    HELM_RELEASE: "next"
+  needs:
+  - "build-image"
+  tags:
+  - selectel-k8s

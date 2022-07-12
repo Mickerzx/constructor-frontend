@@ -1,0 +1,113 @@
+button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.mall-card__block {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 240px;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #e9e9e9;
+  border-radius: 8px;
+}
+
+.mall-card__labels {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.mall-card__labels p {
+  padding: 0 8px;
+  margin: 0;
+  margin-right: 4px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+}
+
+.mall-card__labels .labels__new {
+  background: #3bb273;
+}
+
+.mall-card__labels .labels__discount {
+  background: #e8303b;
+}
+
+.mall-card__labels .labels__hit {
+  background: #f9ac30;
+  border-radius: 7px;
+}
+
+.mall-labels__block {
+  display: flex;
+  justify-content: space-between;
+  width: 55px;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.mall-card__image img {
+  display: block;
+  width: 216px;
+}
+
+.mall-card__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.mall-card__art {
+  margin-top: 8px;
+  margin-bottom: 20px;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.mall-card__available {
+  margin-bottom: 8px;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.mall-card__prices {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.mall-prices__old {
+  margin-left: 8px;
+  text-decoration-line: line-through;
+}
+
+.mall-card__button {
+  position: relative;
+  width: 100%;
+}
+
+.mall-button__icon {
+  position: absolute;
+  right: 0;
+  bottom: -5px;
+}
+
+.mall-button__long {
+  width: 216px;
+  height: 40px;
+  padding: 8px 16px;
+  margin-top: 20px;
+  border: 1px solid;
+  border-radius: 4px;
+}

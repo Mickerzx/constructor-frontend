@@ -1,0 +1,33 @@
+.container {
+  max-width: 849px;
+  padding-bottom: 40px;
+  margin: 0 auto;
+
+  @media (min-width: 1304px) {
+    width: 849px;
+  }
+}
+
+.card {
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.price {
+  color: #3bb273;
+}
+
+.policy {
+  margin: 24px 0;
+  text-align: center;
+}
+
+.button {
+  width: 100%;
+  padding: 9px 0;
+  color: #fff;
+  cursor: pointer;
+  background-color: #0364ed;
+  border: none;
+  border-radius: 8px;
+}

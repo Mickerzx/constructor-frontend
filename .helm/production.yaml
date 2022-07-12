@@ -1,0 +1,35 @@
+replicas: 2
+
+imagePullSecrets:
+- name: selectel-k8s
+
+envs:
+  node_env: "production"
+  scs_backend_server_url: "http://scs-backend:3000"
+
+ingress:
+  enabled: true
+  hosts:
+  - preview.mall-stage.yeticrab.org
+  - "*.preview.mall-stage.yeticrab.org"
+  tls:
+  - hosts:
+    - preview.mall-stage.yeticrab.org
+    - "*.preview.mall-stage.yeticrab.org"
+    secretName: preview-ssl
+
+metrics:
+  enabled: false
+
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 100
+      podAffinityTerm:
+        topologyKey: kubernetes.io/hostname
+        labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/instance
+            operator: In
+            values:
+            - next

@@ -1,0 +1,36 @@
+.container {
+  max-width: 849px;
+  padding-bottom: 40px;
+  margin: 0 auto;
+}
+
+.card {
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  @media (max-width: 830px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.button {
+  padding: 9px 16px;
+  margin-right: 32px;
+  color: #fff;
+  cursor: pointer;
+  background-color: #0364ed;
+  border: none;
+  border-radius: 8px;
+
+  @media (max-width: 830px) {
+    margin-right: 0;
+    margin-bottom: 24px;
+  }
+}

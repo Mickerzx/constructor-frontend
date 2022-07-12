@@ -1,0 +1,91 @@
+# Число реплик
+replicas: 1
+
+# Параметры образа
+image:
+  repository: registry.gitlab.com/yeticrab/moll-cms/constructor-frontend/next
+  tag: devops
+  pullPolicy: IfNotPresent
+
+# Секреты для получения docker-образов из репозитория
+imagePullSecrets: []
+# - name: dockerSecret
+
+# Параметры сервиса
+service:
+  port: 3015
+  type: ClusterIP
+  # nodePort: 32467
+
+# Параметры ingress
+ingress:
+  enabled: false
+  path: [ / ]
+  annotations: {}
+  labels: {}
+  hosts: []
+  tls: []
+
+# Параметры окружения
+envs: {}
+
+# Метрики приложения
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    # additionalLabels:
+    #   monitoring: prod
+    # namespace: monitoring
+    # interval: 15s
+    # scrapeTimeout: 10s
+    # honorLabels: true
+    # honorTimestamps: true
+    # metricRelabelings:
+    #   - sourceLabels: [__meta_kubernetes_service_label_cluster]
+    #     targetLabel: cluster
+    #     regex: (.*)
+    #     replacement: ${1}
+    #     action: replace
+    # relabelings: |-
+    #   - sourceLabels: [__meta_kubernetes_pod_node_name]
+    #     separator: ;
+    #     regex: ^(.*)$
+    #     targetLabel: {{ .Values.metrics.serviceMonitor.namespace }}
+    #     replacement: $1
+    #     action: replace
+
+
+# Параметры безопасности подов
+podSecurityContext: {}
+# runAsUser: 1000
+# runAsGroup: 1000
+# fsGroup: 1000
+# allowPrivilegeEscalation: false
+
+# Параметры ресурсов
+resources: {}
+# requests:
+#   cpu: 0.5
+#   memory: 128Mi
+# limits:
+#   cpu: 1
+#   memory: 256Mi
+
+# Параметры выбора ноды
+nodeSelector: {}
+# disks: ssd
+# cpu: intel
+
+# Параметры tolerations
+tolerations: []
+# - key: storage
+#   operator: "Exists"
+#   effect: "NoSchedule"
+
+# Параметры affinity
+affinity: {}
+
+# Название класса приоритета
+# Класс используется и для tnt и для strage-api-proxy
+# priorityClass: "priorityClassName"
